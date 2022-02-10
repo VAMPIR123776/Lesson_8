@@ -1,0 +1,56 @@
+package Lesson_8;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+// Спасибо Вам, вы очень хорошо объясняете)
+
+public class AppForm extends JFrame {
+    public AppForm(){
+        setTitle("Chat");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBounds(300, 300, 600, 500);
+
+        Font font = new Font("Times New Roman",Font.ITALIC,18);
+
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setFont(font);
+
+        JScrollPane pane = new JScrollPane(textArea);
+        add(pane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        JButton push = new JButton("Отправить");
+        bottomPanel.add(push, BorderLayout.EAST);
+
+        JTextField textField = new JTextField
+                ("Введите ваше сообщение: Будем честны, без помощи интернета тут не обошлось ");
+        bottomPanel.add(textField, BorderLayout.CENTER);
+
+        push.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textField.getText();
+                textField.setText("");
+                textArea.append(text + "\n");
+                textField.grabFocus();
+            }
+        });
+
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textField.setText("");
+            }
+        });
+
+        setVisible(true);
+    }
+}
